@@ -9,7 +9,8 @@
 
 基于 RuoYi-Vue 开发的家庭财务管理系统，支持多家庭、多成员协同管理。
 
-<img width="2559" height="1251" alt="image" src="https://github.com/user-attachments/assets/ab5f3baf-eca1-47b7-aaac-a37041bad304" />
+<img width="2550" height="1310" alt="image" src="https://github.com/user-attachments/assets/e335f0fe-3e99-47c5-bde9-22ff39ee0415" />
+
 
 </div>
 
