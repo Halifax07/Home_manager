@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FamilyMembersMapper">
+    
+    <resultMap type="FamilyMembers" id="FamilyMembersResult">
+        <result property="id"    column="id"    />
+        <result property="familyId"    column="family_id"    />
+        <result property="name"    column="name"    />
+        <result property="gender"    column="gender"    />
+        <result property="kinship"    column="kinship"    />
+        <result property="occupation"    column="occupation"    />
+        <result property="account"    column="account"    />
+        <result property="passwordHash"    column="password_hash"    />
+        <result property="role"    column="role"    />
+        <result property="familyName"    column="family_name"    />
+    </resultMap>
+
+    <sql id="selectFamilyMembersVo">
+        select fm.id, fm.family_id, fm.name, fm.gender, fm.kinship, fm.occupation, 
+               fm.account, fm.password_hash, fm.role, f.family_name
+        from family_members fm
+        left join families f on fm.family_id = f.familie_id
+    </sql>
+
+    <select id="selectFamilyMembersList" parameterType="FamilyMembers" resultMap="FamilyMembersResult">
+        <include refid="selectFamilyMembersVo"/>
+        <where>  
+            <if test="familyId != null "> and fm.family_id = #{familyId}</if>
+            <if test="name != null  and name != ''"> and fm.name like concat('%', #{name}, '%')</if>
+            <if test="gender != null  and gender != ''"> and fm.gender = #{gender}</if>
+            <if test="kinship != null  and kinship != ''"> and fm.kinship = #{kinship}</if>
+            <if test="occupation != null  and occupation != ''"> and fm.occupation = #{occupation}</if>
+            <if test="account != null  and account != ''"> and fm.account = #{account}</if>
+            <if test="role != null  and role != ''"> and fm.role = #{role}</if>
+        </where>
+        order by fm.id
+    </select>
+    
+    <select id="selectFamilyMembersById" parameterType="Integer" resultMap="FamilyMembersResult">
+        <include refid="selectFamilyMembersVo"/>
+        where fm.id = #{id}
+    </select>
+
+    <select id="selectMemberByAccount" parameterType="String" resultMap="FamilyMembersResult">
+        <include refid="selectFamilyMembersVo"/>
+        where fm.account = #{account}
+    </select>
+
+    <select id="checkAccountUnique" parameterType="String" resultMap="FamilyMembersResult">
+        select id, family_id, name, account from family_members where account = #{account} limit 1
+    </select>
+
+    <select id="selectMembersByFamilyId" parameterType="Integer" resultMap="FamilyMembersResult">
+        <include refid="selectFamilyMembersVo"/>
+        where fm.family_id = #{familyId}
+        order by fm.id
+    </select>
+        
+    <insert id="insertFamilyMembers" parameterType="FamilyMembers" useGeneratedKeys="true" keyProperty="id">
+        insert into family_members
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="familyId != null">family_id,</if>
+            <if test="name != null">name,</if>
+            <if test="gender != null and gender != ''">gender,</if>
+            <if test="kinship != null and kinship != ''">kinship,</if>
+            <if test="occupation != null">occupation,</if>
+            <if test="account != null">account,</if>
+            <if test="passwordHash != null">password_hash,</if>
+            <if test="role != null and role != ''">role,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="familyId != null">#{familyId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="gender != null and gender != ''">#{gender},</if>
+            <if test="kinship != null and kinship != ''">#{kinship},</if>
+            <if test="occupation != null">#{occupation},</if>
+            <if test="account != null">#{account},</if>
+            <if test="passwordHash != null">#{passwordHash},</if>
+            <if test="role != null and role != ''">#{role},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFamilyMembers" parameterType="FamilyMembers">
+        update family_members
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="familyId != null">family_id = #{familyId},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="gender != null and gender != ''">gender = #{gender},</if>
+            <if test="kinship != null and kinship != ''">kinship = #{kinship},</if>
+            <if test="occupation != null">occupation = #{occupation},</if>
+            <if test="account != null">account = #{account},</if>
+            <if test="passwordHash != null">password_hash = #{passwordHash},</if>
+            <if test="role != null and role != ''">role = #{role},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFamilyMembersById" parameterType="Integer">
+        delete from family_members where id = #{id}
+    </delete>
+
+    <delete id="deleteFamilyMembersByIds" parameterType="String">
+        delete from family_members where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectFamilyMemberByUserId" parameterType="Long" resultMap="FamilyMembersResult">
+        <include refid="selectFamilyMembersVo"/>
+        where user_id = #{userId}
+    </select>
+
+</mapper>

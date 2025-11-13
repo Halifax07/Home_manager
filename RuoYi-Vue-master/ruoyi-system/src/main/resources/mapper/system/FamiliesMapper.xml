@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FamiliesMapper">
+    
+    <resultMap type="Families" id="FamiliesResult">
+        <result property="familieId"    column="familie_id"    />
+        <result property="familyName"    column="family_name"    />
+    </resultMap>
+
+    <sql id="selectFamiliesVo">
+        select familie_id, family_name from families
+    </sql>
+
+    <select id="selectFamiliesList" parameterType="Families" resultMap="FamiliesResult">
+        <include refid="selectFamiliesVo"/>
+        <where>  
+            <if test="familyName != null  and familyName != ''"> and family_name like concat('%', #{familyName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectFamiliesById" parameterType="Integer" resultMap="FamiliesResult">
+        <include refid="selectFamiliesVo"/>
+        where familie_id = #{familieId}
+    </select>
+
+    <select id="checkFamilyNameUnique" parameterType="String" resultMap="FamiliesResult">
+        <include refid="selectFamiliesVo"/>
+        where family_name = #{familyName} limit 1
+    </select>
+        
+    <insert id="insertFamilies" parameterType="Families" useGeneratedKeys="true" keyProperty="familieId">
+        insert into families
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="familyName != null and familyName != ''">family_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="familyName != null and familyName != ''">#{familyName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFamilies" parameterType="Families">
+        update families
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="familyName != null and familyName != ''">family_name = #{familyName},</if>
+        </trim>
+        where familie_id = #{familieId}
+    </update>
+
+    <delete id="deleteFamiliesById" parameterType="Integer">
+        delete from families where familie_id = #{familieId}
+    </delete>
+
+    <delete id="deleteFamiliesByIds" parameterType="String">
+        delete from families where familie_id in 
+        <foreach item="familieId" collection="array" open="(" separator="," close=")">
+            #{familieId}
+        </foreach>
+    </delete>
+
+</mapper>
