@@ -79,29 +79,27 @@ spring:
 ### 后端构建与启动
 注意：启动后端前一定要开启redis！！！
 ```bash
-# 1. 清理 & 编译（跳过测试可加 -DskipTests）
+# 进入项目根目录
+cd Home_manager\RuoYi-Vue-master
+
+# 清理并编译打包（首次或代码修改后）
 mvn clean package -DskipTests
 
-# 2. 运行（开发期直接用 IDE 也可）
-java -jar ruoyi-admin/target/ruoyi-admin.jar
-```
-
-后端默认端口：`http://localhost:8080`
-
-常用 Maven 命令：
-```bash
-mvn clean              # 清理
-mvn test               # 运行测试（若已编写）
-mvn package -DskipTests # 打包跳过测试
-mvn dependency:tree    # 查看依赖树
+# 启动后端服务
+java -jar ruoyi-admin\target\ruoyi-admin.jar
 ```
 
 ### 前端启动（开发模式）
 
 ```bash
-cd ruoyi-ui
-npm install            # 安装依赖
-npm run dev            # 启动开发服务（含代理）
+# 进入前端目录
+cd Home_manager\RuoYi-Vue-master\ruoyi-ui
+
+# 首次启动需要安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
 ```
 
 
