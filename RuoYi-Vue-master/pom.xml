@@ -218,24 +218,6 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-families</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-users</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-transactions</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -245,9 +227,6 @@
         <module>ruoyi-system</module>
         <module>ruoyi-quartz</module>
         <module>ruoyi-common</module>
-        <module>ruoyi-families</module>
-        <module>ruoyi-users</module>
-        <module>ruoyi-transactions</module>
     </modules>
     <packaging>pom</packaging>
 

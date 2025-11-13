@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.system.mapper.FamiliesMapper;
+import com.ruoyi.system.mapper.FamilyMembersMapper;
 import com.ruoyi.system.domain.Families;
 import com.ruoyi.system.service.IFamiliesService;
 
@@ -19,6 +20,9 @@ public class FamiliesServiceImpl implements IFamiliesService
 {
     @Autowired
     private FamiliesMapper familiesMapper;
+
+    @Autowired
+    private FamilyMembersMapper familyMembersMapper;
 
     /**
      * 查询家庭信息
@@ -108,5 +112,17 @@ public class FamiliesServiceImpl implements IFamiliesService
             return false;
         }
         return true;
+    }
+
+    /**
+     * 检查家庭是否已存在管理员
+     * 
+     * @param familyId 家庭ID
+     * @return 如果已存在管理员返回true，否则返回false
+     */
+    @Override
+    public boolean checkFamilyHasAdmin(Integer familyId)
+    {
+        return familyMembersMapper.checkFamilyHasAdmin(familyId) > 0;
     }
 }

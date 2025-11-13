@@ -143,4 +143,16 @@ public class FamilyMembersServiceImpl implements IFamilyMembersService
     {
         return familyMembersMapper.selectFamilyMemberByUserId(userId);
     }
+
+    /**
+     * 检查家庭是否已存在管理员
+     * 
+     * @param familyId 家庭ID
+     * @return 如果已存在管理员返回true，否则返回false
+     */
+    @Override
+    public boolean checkFamilyHasAdmin(Integer familyId)
+    {
+        return familyMembersMapper.checkFamilyHasAdmin(familyId) > 0;
+    }
 }

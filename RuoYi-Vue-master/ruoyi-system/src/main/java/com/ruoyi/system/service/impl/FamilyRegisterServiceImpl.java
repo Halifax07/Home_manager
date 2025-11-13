@@ -169,21 +169,52 @@ public class FamilyRegisterServiceImpl implements IFamilyRegisterService
             
             // 如果是家庭管理员，需要先创建家庭
             if ("admin".equals(register.getUserType())) {
+                // 检查家庭名称是否为空
+                if (register.getFamilyName() == null || register.getFamilyName().trim().isEmpty()) {
+                    throw new RuntimeException("家庭管理员必须提供家庭名称");
+                }
+                
+                // 检查家庭名称是否已存在
+                Families searchFamily = new Families();
+                searchFamily.setFamilyName(register.getFamilyName());
+                List<Families> existingFamilies = familiesService.selectFamiliesList(searchFamily);
+                if (!existingFamilies.isEmpty()) {
+                    throw new RuntimeException("家庭名称已存在，请更换家庭名称");
+                }
+                
+                // 创建新家庭
                 Families family = new Families();
                 family.setFamilyName(register.getFamilyName());
                 familiesService.insertFamilies(family);
                 familyId = family.getFamilieId();
             } else {
                 // 如果是普通成员，查找对应的家庭ID
+                if (register.getFamilyName() == null || register.getFamilyName().trim().isEmpty()) {
+                    throw new RuntimeException("普通成员必须提供要加入的家庭名称");
+                }
+                
                 Families searchFamily = new Families();
                 searchFamily.setFamilyName(register.getFamilyName());
                 List<Families> familyList = familiesService.selectFamiliesList(searchFamily);
-                if (!familyList.isEmpty()) {
-                    familyId = familyList.get(0).getFamilieId();
+                
+                if (familyList.isEmpty()) {
+                    throw new RuntimeException("家庭不存在：" + register.getFamilyName());
+                }
+                
+                familyId = familyList.get(0).getFamilieId();
+                
+                // 检查该家庭是否已有管理员（普通成员加入时家庭必须已有管理员）
+                if (!familyMembersService.checkFamilyHasAdmin(familyId)) {
+                    throw new RuntimeException("该家庭还没有管理员，无法加入");
                 }
             }
 
             if (familyId != null) {
+                // 如果是管理员注册，再次检查该家庭是否已有管理员
+                if ("admin".equals(register.getUserType()) && familyMembersService.checkFamilyHasAdmin(familyId)) {
+                    throw new RuntimeException("该家庭已存在管理员，一个家庭只能有一个管理员");
+                }
+                
                 // 创建家庭成员记录
                 FamilyMembers member = new FamilyMembers();
                 member.setFamilyId(familyId);

@@ -66,4 +66,12 @@ public interface IFamiliesService
      * @return 结果
      */
     public boolean checkFamilyNameUnique(Families families);
+
+    /**
+     * 检查家庭是否已存在管理员
+     * 
+     * @param familyId 家庭ID
+     * @return 如果已存在管理员返回true，否则返回false
+     */
+    public boolean checkFamilyHasAdmin(Integer familyId);
 }
