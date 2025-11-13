@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FamilyRegisterMapper">
+    
+    <resultMap type="FamilyRegister" id="FamilyRegisterResult">
+        <result property="id"    column="id"    />
+        <result property="account"    column="account"    />
+        <result property="passwordHash"    column="password_hash"    />
+        <result property="name"    column="name"    />
+        <result property="gender"    column="gender"    />
+        <result property="kinship"    column="kinship"    />
+        <result property="occupation"    column="occupation"    />
+        <result property="userType"    column="user_type"    />
+        <result property="familyName"    column="family_name"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="approveTime"    column="approve_time"    />
+        <result property="approveBy"    column="approve_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectFamilyRegisterVo">
+        select id, account, password_hash, name, gender, kinship, occupation, user_type, family_name, status, create_time, approve_time, approve_by, remark from family_register
+    </sql>
+
+    <select id="selectFamilyRegisterList" parameterType="FamilyRegister" resultMap="FamilyRegisterResult">
+        <include refid="selectFamilyRegisterVo"/>
+        <where>  
+            <if test="account != null  and account != ''"> and account like concat('%', #{account}, '%')</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="kinship != null  and kinship != ''"> and kinship = #{kinship}</if>
+            <if test="occupation != null  and occupation != ''"> and occupation like concat('%', #{occupation}, '%')</if>
+            <if test="userType != null  and userType != ''"> and user_type = #{userType}</if>
+            <if test="familyName != null  and familyName != ''"> and family_name like concat('%', #{familyName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="approveBy != null  and approveBy != ''"> and approve_by like concat('%', #{approveBy}, '%')</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectFamilyRegisterById" parameterType="Integer" resultMap="FamilyRegisterResult">
+        <include refid="selectFamilyRegisterVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectFamilyRegisterByAccount" parameterType="String" resultMap="FamilyRegisterResult">
+        <include refid="selectFamilyRegisterVo"/>
+        where account = #{account}
+    </select>
+
+    <select id="checkAccountExists" parameterType="String" resultType="int">
+        select count(1) from family_register where account = #{account}
+    </select>
+        
+    <insert id="insertFamilyRegister" parameterType="FamilyRegister" useGeneratedKeys="true" keyProperty="id">
+        insert into family_register
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null and account != ''">account,</if>
+            <if test="passwordHash != null and passwordHash != ''">password_hash,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="gender != null">gender,</if>
+            <if test="kinship != null">kinship,</if>
+            <if test="occupation != null">occupation,</if>
+            <if test="userType != null and userType != ''">user_type,</if>
+            <if test="familyName != null">family_name,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="approveTime != null">approve_time,</if>
+            <if test="approveBy != null">approve_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null and account != ''">#{account},</if>
+            <if test="passwordHash != null and passwordHash != ''">#{passwordHash},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="kinship != null">#{kinship},</if>
+            <if test="occupation != null">#{occupation},</if>
+            <if test="userType != null and userType != ''">#{userType},</if>
+            <if test="familyName != null">#{familyName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="approveTime != null">#{approveTime},</if>
+            <if test="approveBy != null">#{approveBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFamilyRegister" parameterType="FamilyRegister">
+        update family_register
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="account != null and account != ''">account = #{account},</if>
+            <if test="passwordHash != null and passwordHash != ''">password_hash = #{passwordHash},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="kinship != null">kinship = #{kinship},</if>
+            <if test="occupation != null">occupation = #{occupation},</if>
+            <if test="userType != null and userType != ''">user_type = #{userType},</if>
+            <if test="familyName != null">family_name = #{familyName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="approveTime != null">approve_time = #{approveTime},</if>
+            <if test="approveBy != null">approve_by = #{approveBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFamilyRegisterById" parameterType="Integer">
+        delete from family_register where id = #{id}
+    </delete>
+
+    <delete id="deleteFamilyRegisterByIds" parameterType="String">
+        delete from family_register where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

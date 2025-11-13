@@ -1,0 +1,256 @@
+/* 家庭财务管理系统 - 自定义样式 */
+
+/* 全局主题色覆盖 */
+:root {
+  --primary-color: #667eea;
+  --primary-light: #8aa7ee;
+  --primary-dark: #5a6fd8;
+  --secondary-color: #764ba2;
+  --success-color: #51cf66;
+  --warning-color: #ffd43b;
+  --danger-color: #ff6b6b;
+  --info-color: #22d3ee;
+}
+
+/* Element UI 主题色覆盖 */
+.el-button--primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border: none;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--primary-light) 0%, #6a4190 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.el-switch.is-checked .el-switch__core {
+  background-color: var(--primary-color);
+}
+
+.el-slider__runway .el-slider__bar {
+  background-color: var(--primary-color);
+}
+
+.el-slider__button {
+  border-color: var(--primary-color);
+}
+
+.el-progress-bar__inner {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+/* 卡片样式优化 */
+.el-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* 表格样式优化 */
+.el-table {
+  border-radius: 8px;
+  overflow: hidden;
+  
+  .el-table__header {
+    th {
+      background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+      color: #2c3e50;
+      font-weight: 600;
+    }
+  }
+  
+  .el-table__row:hover > td {
+    background-color: rgba(102, 126, 234, 0.05) !important;
+  }
+}
+
+/* 表单输入框样式优化 */
+.el-input__inner {
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+  }
+}
+
+.el-textarea__inner {
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+  }
+}
+
+/* 弹窗样式优化 */
+.el-dialog {
+  border-radius: 12px;
+  overflow: hidden;
+  
+  .el-dialog__header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 20px;
+    
+    .el-dialog__title {
+      color: white;
+      font-weight: 600;
+    }
+    
+    .el-dialog__close {
+      color: white;
+      font-size: 18px;
+      
+      &:hover {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+}
+
+/* 标签页样式优化 */
+.el-tabs__active-bar {
+  background-color: var(--primary-color);
+}
+
+.el-tabs__item.is-active {
+  color: var(--primary-color);
+}
+
+.el-tabs__item:hover {
+  color: var(--primary-color);
+}
+
+/* 分页组件样式优化 */
+.el-pagination {
+  .el-pagination__jump {
+    .el-input__inner {
+      border-radius: 6px;
+    }
+  }
+  
+  .el-pager li.active {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 6px;
+  }
+  
+  .btn-next, .btn-prev {
+    border-radius: 6px;
+    
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+/* 面包屑样式优化 */
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* 菜单项样式优化 */
+.el-menu-item.is-active {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px;
+  margin: 2px 8px;
+}
+
+.el-submenu__title:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 8px;
+  margin: 2px 8px;
+}
+
+/* 滚动条样式优化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border-radius: 3px;
+  
+  &:hover {
+    background: linear-gradient(135deg, var(--primary-light) 0%, #6a4190 100%);
+  }
+}
+
+/* 页面加载动画优化 */
+.app-main {
+  min-height: calc(100vh - 50px);
+  position: relative;
+}
+
+/* 响应式设计优化 */
+@media (max-width: 768px) {
+  .el-card {
+    margin: 0 10px;
+    border-radius: 8px;
+  }
+  
+  .el-dialog {
+    width: 90% !important;
+    margin-top: 5vh !important;
+  }
+}
+
+/* 工具提示样式优化 */
+.el-tooltip__popper {
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* 消息提示样式优化 */
+.el-message {
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.el-notification {
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* 加载动画优化 */
+.el-loading-mask {
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(5px);
+}
+
+.el-loading-spinner .path {
+  stroke: var(--primary-color);
+}
