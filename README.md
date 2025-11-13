@@ -8,7 +8,9 @@
 ![Vue](https://img.shields.io/badge/Vue.js-2.6.12-green.svg)
 
 基于 RuoYi-Vue 开发的家庭财务管理系统，支持多家庭、多成员协同管理。
+
 <img width="2559" height="1251" alt="image" src="https://github.com/user-attachments/assets/ab5f3baf-eca1-47b7-aaac-a37041bad304" />
+
 </div>
 
 ## 📋 项目简介
