@@ -74,7 +74,7 @@ spring:
 如需关闭验证码（测试用），可在系统配置中修改 `sys.account.captchaEnabled=false`。
 
 ### 后端构建与启动
-
+注意：启动后端前一定要开启redis！！！
 ```bash
 # 1. 清理 & 编译（跳过测试可加 -DskipTests）
 mvn clean package -DskipTests
