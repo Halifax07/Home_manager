@@ -90,4 +90,12 @@ public interface FamilyMembersMapper
      * @return 家庭成员信息
      */
     public FamilyMembers selectFamilyMemberByUserId(Long userId);
+
+    /**
+     * 检查家庭是否已存在管理员
+     * 
+     * @param familyId 家庭ID
+     * @return 管理员数量
+     */
+    public int checkFamilyHasAdmin(Integer familyId);
 }

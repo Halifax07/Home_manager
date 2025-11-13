@@ -68,7 +68,13 @@ public class StatisticsController extends BaseController
         }
 
         try {
-            Map<String, Object> overview = statisticsService.getStatisticsOverview(currentMember.getFamilyId());
+            Map<String, Object> overview;
+            // 如果是管理员，查看家庭全部数据；如果是普通成员，只查看自己的数据
+            if (isCurrentUserFamilyAdmin()) {
+                overview = statisticsService.getStatisticsOverview(currentMember.getFamilyId(), null);
+            } else {
+                overview = statisticsService.getStatisticsOverview(currentMember.getFamilyId(), currentMember.getId());
+            }
             return success(overview);
         } catch (Exception e) {
             logger.error("获取收支统计概览失败", e);
@@ -90,7 +96,13 @@ public class StatisticsController extends BaseController
         }
 
         try {
-            List<Map<String, Object>> statistics = statisticsService.getCategoryStatistics(currentMember.getFamilyId(), "收入");
+            List<Map<String, Object>> statistics;
+            // 如果是管理员，查看家庭全部数据；如果是普通成员，只查看自己的数据
+            if (isCurrentUserFamilyAdmin()) {
+                statistics = statisticsService.getCategoryStatistics(currentMember.getFamilyId(), "收入", null);
+            } else {
+                statistics = statisticsService.getCategoryStatistics(currentMember.getFamilyId(), "收入", currentMember.getId());
+            }
             return success(statistics);
         } catch (Exception e) {
             logger.error("获取收入分类统计失败", e);
@@ -112,7 +124,13 @@ public class StatisticsController extends BaseController
         }
 
         try {
-            List<Map<String, Object>> statistics = statisticsService.getCategoryStatistics(currentMember.getFamilyId(), "支出");
+            List<Map<String, Object>> statistics;
+            // 如果是管理员，查看家庭全部数据；如果是普通成员，只查看自己的数据
+            if (isCurrentUserFamilyAdmin()) {
+                statistics = statisticsService.getCategoryStatistics(currentMember.getFamilyId(), "支出", null);
+            } else {
+                statistics = statisticsService.getCategoryStatistics(currentMember.getFamilyId(), "支出", currentMember.getId());
+            }
             return success(statistics);
         } catch (Exception e) {
             logger.error("获取支出分类统计失败", e);
@@ -134,7 +152,13 @@ public class StatisticsController extends BaseController
         }
 
         try {
-            List<Map<String, Object>> trend = statisticsService.getMonthlyTrend(currentMember.getFamilyId());
+            List<Map<String, Object>> trend;
+            // 如果是管理员，查看家庭全部数据；如果是普通成员，只查看自己的数据
+            if (isCurrentUserFamilyAdmin()) {
+                trend = statisticsService.getMonthlyTrend(currentMember.getFamilyId(), null);
+            } else {
+                trend = statisticsService.getMonthlyTrend(currentMember.getFamilyId(), currentMember.getId());
+            }
             return success(trend);
         } catch (Exception e) {
             logger.error("获取月度收支趋势失败", e);
