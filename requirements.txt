@@ -1,0 +1,23 @@
+# 环境与运行依赖 (非 Python 包, 用于整体项目环境说明)
+# Backend Runtime
+Java==17
+SpringBoot==2.5.15
+Maven>=3.6.3
+MySQL>=5.7
+Redis>=6.0
+
+# Frontend Runtime
+Node.js>=16.0
+npm>=8.0
+Vue.js==2.6.12
+ElementUI==2.15.14
+ECharts==5.x
+Axios==1.x
+
+# Optional / Tools
+Vue-CLI>=5.0.0
+Docker (optional)
+Git
+
+# 说明:
+# 该文件仅用于列出环境依赖, 并非 pip 格式; 若需生成镜像请依据此清单安装对应环境。
